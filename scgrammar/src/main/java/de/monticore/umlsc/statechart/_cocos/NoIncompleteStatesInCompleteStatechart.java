@@ -7,8 +7,6 @@ import de.monticore.umlsc.statechart._ast.ASTStatechart;
 /**
  * TODO: Write me!
  *
- * @author  (last commit) $Author$
- * @since   TODO: add version number
  *
  */
 public class NoIncompleteStatesInCompleteStatechart implements StatechartASTStatechartCoCo {

@@ -10,7 +10,6 @@ import de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinter;
 /**
  * Created by
  *
- * @author KH
  */
 public class Util {
   public static String print(ASTStatechartNode node){

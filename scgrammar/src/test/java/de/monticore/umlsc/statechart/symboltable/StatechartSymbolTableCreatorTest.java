@@ -18,8 +18,6 @@ import static org.junit.Assert.assertNotNull;
 /**
  * TODO: Write me!
  *
- * @author  (last commit) $Author$
- * @since   TODO: add version number
  *
  */
 public class StatechartSymbolTableCreatorTest {

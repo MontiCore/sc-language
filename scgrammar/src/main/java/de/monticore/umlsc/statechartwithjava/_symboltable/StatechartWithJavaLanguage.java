@@ -16,8 +16,6 @@ import de.monticore.umlsc.statechart._symboltable.StatechartSymbolTableCreator;
 /**
  * TODO: Write me!
  *
- * @author  (last commit) $Author$
- * @since   TODO: add version number
  *
  */
 public class StatechartWithJavaLanguage extends StatechartWithJavaLanguageTOP {

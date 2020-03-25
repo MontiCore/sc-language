@@ -34,7 +34,6 @@ import java.util.Optional;
 /**
  * Created by
  *
- * @author KH
  */
 public class SCTool {
   

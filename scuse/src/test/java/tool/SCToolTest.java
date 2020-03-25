@@ -23,7 +23,6 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * Created by
  *
- * @author KH
  */
 public class SCToolTest {
   
