@@ -1,8 +1,8 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore.umlsc.parser;
 
-import de.monticore.symboltable.CommonScope;
-import de.monticore.symboltable.ResolvingConfiguration;
+//import de.monticore.symboltable.CommonScope;
+//import de.monticore.symboltable.ResolvingConfiguration;
 import de.monticore.umlsc.statechart._ast.ASTSCArtifact;
 import de.monticore.umlsc.statechart._cocos.TransitionSourceAndTargetExists;
 import de.monticore.umlsc.statechartwithjava._cocos.StatechartWithJavaCoCoChecker;
@@ -79,10 +79,10 @@ public class CocoTests {
 		StatechartWithJavaParser parser = new StatechartWithJavaParser();
 		Optional<ASTSCArtifact> scDef = parser.parseSCArtifact(model.toString());
 		StatechartWithJavaLanguage language = new StatechartWithJavaLanguage();
-		ResolvingConfiguration resolvingConfig = new ResolvingConfiguration();
-		resolvingConfig.addDefaultFilters(language.getResolvingFilters());
-		StatechartWithJavaSymbolTableCreator c = new StatechartWithJavaSymbolTableCreator(resolvingConfig, new CommonScope());
-		c.createFromAST(scDef.get());
+		//ResolvingConfiguration resolvingConfig = new ResolvingConfiguration();
+		//resolvingConfig.addDefaultFilters(language.getResolvingFilters());
+		//StatechartWithJavaSymbolTableCreator c = new StatechartWithJavaSymbolTableCreator(new CommonScope());
+		//c.createFromAST(scDef.get());
 		StatechartWithJavaCoCoChecker checker = new StatechartWithJavaCoCoChecker();
 		checker.addCoCo(new TransitionSourceAndTargetExists());
 		checker.handle(scDef.get());

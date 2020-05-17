@@ -1,0 +1,8 @@
+package de.monticore.umlsc.tr;
+
+component grammar StatechartTR extends de.monticore.types.tr.MCBasicTypesTR, de.monticore.literals.tr.MCCommonLiteralsTR {
+
+  interface ITFSCAction astextends mc.tfcs.ast.ITFElement;
+  interface ITFSCModifier astextends mc.tfcs.ast.ITFElement;
+
+}

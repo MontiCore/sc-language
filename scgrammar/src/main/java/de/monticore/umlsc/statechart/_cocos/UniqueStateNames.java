@@ -13,20 +13,20 @@ import de.se_rwth.commons.logging.Log;
  *
  */
 public class UniqueStateNames implements StatechartASTSCStateCoCo {
-
-	Collection<String> stateNames = new ArrayList<>();
-
-	/**
-	 * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCStateCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCState)
-	 */
-	@Override
-	public void check(ASTSCState node) {
-		if (stateNames.contains(node.getName())) {
-			Log.error(String.format("State name %s must be unique", node.getName()), node.get_SourcePositionStart());
-		} else {
-			this.stateNames.add(node.getName());
-		}
-
-	}
-
+  
+  private final Collection<String> stateNames = new ArrayList<>();
+  
+  /**
+   * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCStateCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCState)
+   */
+  @Override
+  public void check(ASTSCState node) {
+    if (stateNames.contains(node.getName())) {
+      Log.error(String.format("State name %s must be unique", node.getName()), node.get_SourcePositionStart());
+    } else {
+      this.stateNames.add(node.getName());
+    }
+    
+  }
+  
 }

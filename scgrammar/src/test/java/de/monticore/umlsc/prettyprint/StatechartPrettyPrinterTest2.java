@@ -1,6 +1,7 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore.umlsc.prettyprint;
 
+import de.monticore.prettyprint.IndentPrinter;
 import de.monticore.umlsc.statechart._ast.*;
 import de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinter;
 import de.monticore.umlsc.statechartwithjava._parser.StatechartWithJavaParser;
@@ -40,8 +41,7 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTInvariant invariant = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringInvariant(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -55,8 +55,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCMethodCall scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCMethodCall(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -70,8 +70,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCReturnStatement scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCReturnStatement(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -85,8 +85,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCCode scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCCode(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -100,8 +100,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArguments scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCArguments(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -115,8 +115,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCInternTransition scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCInternTransition(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -130,8 +130,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCTransitionBody scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCTransitionBody(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -145,8 +145,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCTransition scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCTransition(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -160,8 +160,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCStereotype scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCStereotype(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -175,8 +175,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCStereoValue scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCStereoValue(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -190,8 +190,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCAction scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCAction(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -205,8 +205,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCModifier scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringSCModifier(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -220,8 +220,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTCompleteness scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parse_StringCompleteness(output);
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -236,8 +236,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArtifact scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parseSCArtifact(new StringReader(output));
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -252,8 +252,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArtifact scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parseSCArtifact(new StringReader(output));
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -267,8 +267,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArtifact scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parseSCArtifact(new StringReader(output));
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -282,8 +282,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArtifact scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parseSCArtifact(new StringReader(output));
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -297,8 +297,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArtifact scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parseSCArtifact(new StringReader(output));
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
@@ -312,8 +312,8 @@ public class StatechartPrettyPrinterTest2 {
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());
     ASTSCArtifact scMethodCall = ast.get();
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
-    String output = pp.prettyPrint(ast.get());
+    
+    String output = StatechartPrettyPrinter.prettyPrint(ast.get());
     ast = parser.parseSCArtifact(new StringReader(output));
     assertTrue(ast.isPresent());
     assertFalse(parser.hasErrors());

@@ -6,7 +6,7 @@
     <parent>
         <artifactId>statechart</artifactId>
         <groupId>de.monticore.lang</groupId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.1.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -154,18 +154,7 @@
       <classifier>${grammars.classifier}</classifier>
     </dependency>
 	
-    <dependency>
-      <groupId>de.monticore</groupId>
-      <artifactId>javaDSL</artifactId>
-      <version>${monticore.java.version}</version>
-    </dependency>
 
-    <dependency>
-      <groupId>de.monticore</groupId>
-      <artifactId>javaDSL</artifactId>
-      <version>${monticore.java.version}</version>
-      <classifier>${grammars.classifier}</classifier>
-    </dependency>
     <dependency>
       <groupId>de.monticore.lang</groupId>
       <artifactId>cd4analysis</artifactId>

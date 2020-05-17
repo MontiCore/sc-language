@@ -6,7 +6,7 @@
   <parent>
     <artifactId>statechart</artifactId>
     <groupId>de.monticore.lang</groupId>
-    <version>1.1.4-SNAPSHOT</version>
+    <version>1.1.5-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -26,7 +26,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>LATEST</version>
+      <version>4.11</version>
     </dependency>
     <dependency>
       <groupId>de.monticore.tf</groupId>

@@ -11,14 +11,14 @@ import de.se_rwth.commons.logging.Log;
  *
  */
 public class TransitionSourceAndTargetExists implements StatechartASTSCTransitionCoCo {
-
-	/**
-	 * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCTransitionCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCTransition)
-	 */
-	@Override
-	public void check(ASTSCTransition node) {
-		if(node.getTarget().equals(null) || node.getSource().equals(null)){
-			Log.error("Source or Target not a State");
-		}
-	}
+  
+  /**
+   * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCTransitionCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCTransition)
+   */
+  @Override
+  public void check(ASTSCTransition node) {
+    if(node.getTarget() == null || node.getSource() == null){
+      Log.error("Source or Target not a State");
+    }
+  }
 }

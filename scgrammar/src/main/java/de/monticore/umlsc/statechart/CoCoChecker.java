@@ -5,16 +5,11 @@ import de.monticore.umlsc.statechart._cocos.AtLeastOneInitialStateInFinalStatech
 import de.monticore.umlsc.statechart._cocos.StatechartCoCoChecker;
 import de.monticore.umlsc.statechart._cocos.UniqueStateNames;
 
-/**
- * TODO: Write me!
- *
- *
- */
 public class CoCoChecker {
-	public void start() {
-		StatechartCoCoChecker checker = new StatechartCoCoChecker();
-		checker.addCoCo(new AtLeastOneInitialStateInFinalStatechartChecker());
-		checker.addCoCo(new UniqueStateNames());
-		
-	}
+  public void start() {
+    StatechartCoCoChecker checker = new StatechartCoCoChecker();
+    checker.addCoCo(new AtLeastOneInitialStateInFinalStatechartChecker());
+    checker.addCoCo(new UniqueStateNames());
+    
+  }
 }

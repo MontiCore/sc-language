@@ -1,7 +1,7 @@
 /* (c) https://github.com/MontiCore/monticore */
 statechart $_ {
   state $a {
-    do / $b [[{}]]
+    do / SCStatements $b [[{}]]
   }
 
 

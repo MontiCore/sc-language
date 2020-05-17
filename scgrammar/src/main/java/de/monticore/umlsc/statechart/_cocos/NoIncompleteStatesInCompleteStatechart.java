@@ -10,32 +10,32 @@ import de.monticore.umlsc.statechart._ast.ASTStatechart;
  *
  */
 public class NoIncompleteStatesInCompleteStatechart implements StatechartASTStatechartCoCo {
-
-	/**
-	 * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCDefinitionCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCDefinition)
-	 */
-	@Override
-	public void check(ASTStatechart node) {
-		if(node.isPresentCompleteness() && node.getCompleteness().isComplete()) {
-			StatechartCoCoChecker c = new StatechartCoCoChecker();
-			c.addCoCo(new NoIncompleteStates());
-			c.handle(node);
-		}
-		
-	}
-
+  
+  /**
+   * @see de.monticore.umlsc.statechart._cocos.StatechartASTStatechartCoCo#check(de.monticore.umlsc.statechart._ast.ASTStatechart)
+   */
+  @Override
+  public void check(ASTStatechart node) {
+    if(node.isPresentCompleteness() && node.getCompleteness().isComplete()) {
+      StatechartCoCoChecker c = new StatechartCoCoChecker();
+      c.addCoCo(new NoIncompleteStates());
+      c.handle(node);
+    }
+    
+  }
+  
 }
 
 
 class NoIncompleteStates implements StatechartASTSCStateCoCo {
-
-	/**
-	 * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCStateCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCState)
-	 */
-	@Override
-	public void check(ASTSCState node) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+  
+  /**
+   * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCStateCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCState)
+   */
+  @Override
+  public void check(ASTSCState node) {
+    // TODO Auto-generated method stub
+    
+  }
+  
 }

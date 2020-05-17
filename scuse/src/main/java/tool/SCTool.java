@@ -7,8 +7,11 @@ import de.monticore.generating.templateengine.GlobalExtensionManagement;
 import de.monticore.io.paths.ModelPath;
 import de.monticore.prettyprint.IndentPrinter;
 import de.monticore.symboltable.*;
-import de.monticore.umlcd4a.cd4analysis._ast.ASTCDDefinition;
-import de.monticore.umlcd4a.prettyprint.CDPrettyPrinterConcreteVisitor;
+//import de.monticore.umlcd4a.cd4analysis._ast.ASTCDDefinition;
+//import de.monticore.umlcd4a.prettyprint.CDPrettyPrinterConcreteVisitor;
+import de.monticore.cd.cd4analysis._ast.ASTCDDefinition;
+import de.monticore.cd.prettyprint.CDPrettyPrinterDelegator;
+//ToDo
 import de.monticore.umlsc.statechart._ast.ASTSCArtifact;
 import de.monticore.umlsc.statechart._cocos.AtLeastOneInitialStateInFinalStatechartChecker;
 import de.monticore.umlsc.statechart._cocos.StatechartCoCoChecker;
@@ -16,11 +19,13 @@ import de.monticore.umlsc.statechart._cocos.TransitionSourceAndTargetExists;
 import de.monticore.umlsc.statechart._cocos.UniqueStateNames;
 import de.monticore.umlsc.statechart._symboltable.SCStateSymbol;
 import de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinter;
+import de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinterDelegator;
 import de.monticore.umlsc.statechartwithjava._cocos.StatechartWithJavaCoCoChecker;
 import de.monticore.umlsc.statechartwithjava._parser.StatechartWithJavaParser;
-import de.monticore.umlsc.statechartwithjava._symboltable.StatechartWithJavaLanguage;
-import de.monticore.umlsc.statechartwithjava._symboltable.StatechartWithJavaSymbolTableCreator;
+import de.monticore.umlsc.statechartwithjava._symboltable.*;
 import de.se_rwth.commons.logging.Log;
+//import mc.tf.AddState;
+//import mc.tf.State2CD;
 import mc.tf.AddState;
 import mc.tf.State2CD;
 import org.antlr.v4.runtime.RecognitionException;
@@ -31,10 +36,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-/**
- * Created by
- *
- */
 public class SCTool {
   
   
@@ -58,9 +59,9 @@ public class SCTool {
     Log.info(model + " parsed successfully!", SCTool.class.getName());
     
     // setup the symbol table
-    Scope modelTopScope = createSymbolTable(lang, ast);
+    IStatechartWithJavaScope modelTopScope = createSymbolTable(lang, ast);
     // can be used for resolving things in the model
-    Optional<Symbol> aSymbol = modelTopScope.resolve("Ping", SCStateSymbol.KIND);
+    Optional<SCStateSymbol> aSymbol = modelTopScope.resolveSCState("Ping");
     if (aSymbol.isPresent()) {
       Log.info("Resolved state symbol \"Ping\"; FQN = " + aSymbol.get().toString(),
           SCTool.class.getName());
@@ -77,7 +78,7 @@ public class SCTool {
 
 
     // execute a pretty printer
-    StatechartPrettyPrinter pp = new StatechartPrettyPrinter();
+    StatechartPrettyPrinterDelegator pp = new StatechartPrettyPrinterDelegator();
     Log.info("Pretty printing the parsed statechart into console:", SCTool.class.getName());
     System.out.println(pp.prettyPrint(ast));
     
@@ -103,11 +104,10 @@ public class SCTool {
     
     ASTCDDefinition cd = state2CD.get_$CD();
   
-    CDPrettyPrinterConcreteVisitor cdPrettyPrinter = new CDPrettyPrinterConcreteVisitor(new IndentPrinter());
+    CDPrettyPrinterDelegator cdPrettyPrinter = new CDPrettyPrinterDelegator(new IndentPrinter());
     // execute a pretty printer
     Log.info("Pretty printing the class diagram into console:", SCTool.class.getName());
-    cd.accept(cdPrettyPrinter);
-    System.out.println(cdPrettyPrinter.getPrinter().getContent());
+    System.out.println(cdPrettyPrinter.prettyprint(cd));
     
     
     
@@ -162,13 +162,11 @@ public class SCTool {
    * @param ast
    * @return
    */
-  public static Scope createSymbolTable(StatechartWithJavaLanguage lang, ASTSCArtifact ast) {
-    final ResolvingConfiguration resolverConfiguration = new ResolvingConfiguration();
-    resolverConfiguration.addDefaultFilters(lang.getResolvingFilters());
+  public static IStatechartWithJavaScope createSymbolTable(StatechartWithJavaLanguage lang, ASTSCArtifact ast) {
+
+    StatechartWithJavaGlobalScope globalScope = new StatechartWithJavaGlobalScope(new ModelPath(), lang);
     
-    GlobalScope globalScope = new GlobalScope(new ModelPath(), lang, resolverConfiguration);
-    
-    StatechartWithJavaSymbolTableCreator symbolTable = new StatechartWithJavaSymbolTableCreator(resolverConfiguration,globalScope);
+    StatechartWithJavaSymbolTableCreator symbolTable = new StatechartWithJavaSymbolTableCreator(globalScope);
     return symbolTable.createFromAST(ast);
   }
   

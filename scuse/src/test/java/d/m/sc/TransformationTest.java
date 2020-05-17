@@ -1,10 +1,9 @@
 /* (c) https://github.com/MontiCore/monticore */
 package d.m.sc;
+import de.monticore.cd.prettyprint.CDPrettyPrinterDelegator;
 import de.monticore.prettyprint.IndentPrinter;
-import de.monticore.umlcd4a.prettyprint.CDPrettyPrinterConcreteVisitor;
 import de.monticore.umlsc.statechart._ast.ASTSCArtifact;
-import de.monticore.umlsc.statechart._ast.ASTStatechart;
-import de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinter;
+import de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinterDelegator;
 import de.monticore.umlsc.statechartwithjava._parser.StatechartWithJavaParser;
 import mc.tf.*;
 import org.junit.Test;
@@ -36,7 +35,7 @@ public class TransformationTest {
 
     assertTrue(ast.get().getStatechart().isPresentName());
     assertEquals("Auftrag2", ast.get().getStatechart().getName());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
   }
 
   @Test
@@ -55,7 +54,7 @@ public class TransformationTest {
 
     assertEquals("Banking", state2CD.get_$CD().getName());
 
-    System.out.println(new CDPrettyPrinterConcreteVisitor(new IndentPrinter()).prettyprint(state2CD.get_$CD()));
+    System.out.println(new CDPrettyPrinterDelegator(new IndentPrinter()).prettyprint(state2CD.get_$CD()));
 
   }
 
@@ -75,7 +74,7 @@ public class TransformationTest {
     tf.doReplacement();
 
     System.out.println("#States: " + ast.get().getStatechart().getSCStateList().size());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
 
@@ -97,7 +96,7 @@ public class TransformationTest {
 
     assertEquals(6, ast.get().getStatechart().getSCTransitionList().size());
     System.out.println("#Transitions: " + ast.get().getStatechart().getSCTransitionList().size());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
   }
 
   @Test
@@ -116,7 +115,7 @@ public class TransformationTest {
     tf.doReplacement();
 
     assertEquals("Production", ast.get().getStatechart().getInitialState().getName());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
   @Test
@@ -135,7 +134,7 @@ public class TransformationTest {
 
     assertEquals("Error", tf.get_$T().getTargetName());
 
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
   @Test
@@ -153,7 +152,7 @@ public class TransformationTest {
 
     tf.doReplacement();
 
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
   @Test
@@ -180,7 +179,7 @@ public class TransformationTest {
 
     assertEquals(7, ast.get().getStatechart().getSCStateList().size());
     System.out.println("#States: " + ast.get().getStatechart().getSCStateList().size());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
 
@@ -190,7 +189,7 @@ public class TransformationTest {
     Optional<ASTSCArtifact> ast = new StatechartWithJavaParser().parse("src/test/models/Action.sc");
 
     assertTrue(ast.isPresent());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
     DoAction tf = new DoAction(ast.get());
 
@@ -202,7 +201,7 @@ public class TransformationTest {
 
     assertEquals(1, ast.get().getStatechart().getSCTransitionList().size());
 
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
 
@@ -214,7 +213,7 @@ public class TransformationTest {
     Optional<ASTSCArtifact> ast = new StatechartWithJavaParser().parse("src/test/models/FinalState.sc");
 
     assertTrue(ast.isPresent());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
     AddFinal tf = new AddFinal(ast.get());
 
@@ -230,7 +229,7 @@ public class TransformationTest {
     
 
 
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
 
   }
   
@@ -240,7 +239,7 @@ public class TransformationTest {
     Optional<ASTSCArtifact> ast = new StatechartWithJavaParser().parse("src/test/models/Stereotype.sc");
     
     assertTrue(ast.isPresent());
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
   
     DeleteStereotype tf = new DeleteStereotype(ast.get());
     
@@ -248,7 +247,7 @@ public class TransformationTest {
     
     tf.doReplacement();
     
-    System.out.println(new StatechartPrettyPrinter().prettyPrint(ast.get()));
+    System.out.println(new StatechartPrettyPrinterDelegator().prettyPrint(ast.get()));
     
   }
 

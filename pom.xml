@@ -7,32 +7,29 @@
   <groupId>de.monticore.lang</groupId>
   <artifactId>statechart</artifactId>
   <packaging>pom</packaging>
-  <version>1.1.4-SNAPSHOT</version>
+  <version>1.1.5-SNAPSHOT</version>
   <modules>
     <module>scgrammar</module>
     <module>sctrans</module>
     <module>scuse</module>
-    <module>sc-archetype</module>
-    <module>sctrans-editor</module>
   </modules>
 
   <properties>
 
     <!-- .. Libraries ..................................................... -->
-    <tflanguage.version>0.3.3-SNAPSHOT</tflanguage.version>
-    <tfengine.version>5.0.1-SNAPSHOT</tfengine.version>
-    <monticore.version>5.0.1.1</monticore.version>
-    <mc4.maven.version>5.0.1</mc4.maven.version>
-    <monticore.java.version>4.3.13</monticore.java.version>
-    <cd4analysis.version>1.3.16</cd4analysis.version>
+    <tflanguage.version>0.3.6-SNAPSHOT</tflanguage.version>
+    <cdtrans.version>0.3.6-SNAPSHOT</cdtrans.version>
+    <tfengine.version>6.1.0-SNAPSHOT</tfengine.version>
+    <monticore.version>6.1.0-SNAPSHOT</monticore.version>
+    <mc4.maven.version>6.1.0-SNAPSHOT</mc4.maven.version>
+    <cd4analysis.version>1.7.0-SNAPSHOT</cd4analysis.version>
     <guava.version>18.0</guava.version>
     <junit.version>4.11</junit.version>
     <se-commons.version>1.7.8</se-commons.version>
     <antlr.version>4.7.1</antlr.version>
-    <se-groovy.maven.version>1.2.3</se-groovy.maven.version>
     <!-- .. Plugins ....................................................... -->
     <mc.java.version>4.3.13</mc.java.version>
-    <se-groovy.maven.version>1.2.3</se-groovy.maven.version>
+    <se-groovy.maven.version>1.2.4-SNAPSHOT</se-groovy.maven.version>
     <compiler.plugin>3.7.0</compiler.plugin>
     <release.plugin>2.5.1</release.plugin>
     <source.plugin>2.4</source.plugin>
@@ -44,7 +41,7 @@
     <grammars.classifier>grammars</grammars.classifier>
     <symbols.classifier>symbols</symbols.classifier>
     <models.classifier>models</models.classifier>
-    <mc.grammars.assembly.version>0.0.10</mc.grammars.assembly.version>
+    <mc.grammars.assembly.version>0.0.11</mc.grammars.assembly.version>
 
     <!-- .. Misc .......................................................... -->
 

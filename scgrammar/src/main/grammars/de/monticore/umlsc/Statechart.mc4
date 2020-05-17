@@ -6,7 +6,7 @@ package de.monticore.umlsc;
  * Grammar Statechart, Version March 8th, 2017
  *
  */
-component grammar Statechart extends de.monticore.types.Types {
+component grammar Statechart extends de.monticore.types.MCBasicTypes, de.monticore.literals.MCCommonLiterals {
   
   /** ASTSCArtifact represents the complete Diagram
     @attribute package          The package declaration of this Statechart
@@ -15,7 +15,7 @@ component grammar Statechart extends de.monticore.types.Types {
   */
   scope SCArtifact =
     ("package" package:(Name& || ".")+ ";")?
-    (ImportStatement)*
+    (MCImportStatement)*
     Statechart EOF;
 
 
@@ -55,8 +55,8 @@ component grammar Statechart extends de.monticore.types.Types {
         Completeness?
         stereotype:SCStereotype?
         "statechart" Name?
-        ("for" className:ReferenceType)?
-        ("refines" superSC:ReferenceType)?
+        ("for" className:MCObjectType)?
+        ("refines" superSC:MCObjectType)?
         "{"
           ( SCState | SCTransition )*
         "}";
@@ -162,7 +162,7 @@ component grammar Statechart extends de.monticore.types.Types {
         @attribute sCArguments Optional Arguments of this method call
     */
     SCMethodCall extends SCEvent =
-        name:QualifiedName SCArguments?;
+        name:MCQualifiedName SCArguments?;
     
     
     /** ASTSCReturnStatement represents a return statement of a Transition

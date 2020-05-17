@@ -6,7 +6,7 @@
   <parent>
     <artifactId>statechart</artifactId>
     <groupId>de.monticore.lang</groupId>
-    <version>1.1.4-SNAPSHOT</version>
+    <version>1.1.5-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -52,8 +52,10 @@
               <!-- It is okay to omit the script here as it is defined above  -->
               <arguments>
                 <models>${basedir}/src/main/grammars</models>
-                <out>${basedir}/target/generated-sources/</out>
+                <out>${basedir}/target/generated-sources/monticore/sourcecode/</out>
                 <fileExtension>sctrans</fileExtension>
+                <modelsHC>${basedir}/src/main/grammarsHC</modelsHC>
+                <noCoCoGen>true</noCoCoGen>
               </arguments>
 
             </configuration>
@@ -89,7 +91,7 @@
       <plugin>
         <groupId>de.monticore.mojo</groupId>
         <artifactId>monticore-maven-plugin</artifactId>
-        <version>${mc4.maven.version}</version>
+        <version>${monticore.version}</version>
         <configuration>
           <addOutputDirectoryToModelPath>false</addOutputDirectoryToModelPath>
           <grammars>
@@ -147,6 +149,45 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>de.se_rwth.commons</groupId>
+      <artifactId>se-commons-groovy</artifactId>
+      <version>${se-commons.version}</version>
+    </dependency>
+    <dependency>
+    <groupId>de.monticore.lang</groupId>
+    <artifactId>basicstatementstrans</artifactId>
+    <version>${tflanguage.version}</version>
+  </dependency>
+    <dependency>
+      <groupId>de.monticore.lang</groupId>
+      <artifactId>basicstatementstrans</artifactId>
+      <version>${tflanguage.version}</version>
+      <classifier>${grammars.classifier}</classifier>
+    </dependency>
+  
+    <dependency>
+      <groupId>de.monticore.lang</groupId>
+      <artifactId>basicexpressionstrans</artifactId>
+      <version>${tflanguage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.monticore.lang</groupId>
+      <artifactId>basicexpressionstrans</artifactId>
+      <version>${tflanguage.version}</version>
+      <classifier>${grammars.classifier}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>de.monticore.lang</groupId>
+      <artifactId>literalstrans</artifactId>
+      <version>${tflanguage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.monticore.lang</groupId>
+      <artifactId>literalstrans</artifactId>
+      <version>${tflanguage.version}</version>
+      <classifier>${grammars.classifier}</classifier>
+    </dependency>
+    <dependency>
       <groupId>de.monticore.lang</groupId>
       <artifactId>typestrans</artifactId>
       <version>${tflanguage.version}</version>
@@ -160,12 +201,12 @@
     <dependency>
       <groupId>de.monticore.lang</groupId>
       <artifactId>cd4atrans</artifactId>
-      <version>${tflanguage.version}</version>
+      <version>${cdtrans.version}</version>
     </dependency>
     <dependency>
       <groupId>de.monticore.lang</groupId>
       <artifactId>cd4atrans</artifactId>
-      <version>${tflanguage.version}</version>
+      <version>${cdtrans.version}</version>
       <classifier>${grammars.classifier}</classifier>
     </dependency>
     <dependency>
@@ -173,6 +214,23 @@
       <artifactId>monticore-grammar</artifactId>
       <version>${monticore.version}</version>
     </dependency>
+    <dependency>
+      <groupId>de.monticore.tf</groupId>
+      <version>${tfengine.version}</version>
+      <artifactId>montitrans-runtime</artifactId>
+      <classifier>${grammars.classifier}</classifier>
+    </dependency>
+    <dependency>
+    <groupId>de.monticore.tf</groupId>
+    <version>${tfengine.version}</version>
+    <artifactId>montitrans-runtime</artifactId>
+  </dependency>
+    <dependency>
+      <groupId>de.monticore.tf</groupId>
+      <version>${tfengine.version}</version>
+      <artifactId>montitrans-odrules</artifactId>
+    </dependency>
+    
     <dependency>
       <groupId>de.monticore.tf</groupId>
       <artifactId>montitrans-dstlgen</artifactId>

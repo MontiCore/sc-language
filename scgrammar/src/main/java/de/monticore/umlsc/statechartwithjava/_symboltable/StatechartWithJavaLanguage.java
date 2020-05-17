@@ -1,54 +1,57 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore.umlsc.statechartwithjava._symboltable;
 
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
 import de.monticore.ast.ASTNode;
-import de.monticore.modelloader.ModelingLanguageModelLoader;
-import de.monticore.symboltable.MutableScope;
-import de.monticore.symboltable.ResolvingConfiguration;
-import de.monticore.symboltable.SymbolTableCreator;
-import de.monticore.umlsc.statechart._symboltable.SCStateResolvingFilter;
-import de.monticore.umlsc.statechart._symboltable.StatechartModelNameCalculator;
-import de.monticore.umlsc.statechart._symboltable.StatechartResolvingFilter;
+//import de.monticore.modelloader.ModelingLanguageModelLoader;
+//import de.monticore.symboltable.ResolvingConfiguration;
 import de.monticore.umlsc.statechart._symboltable.StatechartSymbolTableCreator;
+import de.monticore.umlsc.statechart._symboltable.IStatechartScope;
+import de.monticore.umlsc.statechart._symboltable.StatechartSymbolTableCreator;
+import de.monticore.utils.Names;
 
-/**
- * TODO: Write me!
- *
- *
- */
 public class StatechartWithJavaLanguage extends StatechartWithJavaLanguageTOP {
-
-	/**
-	 * Constructor for de.monticore.umlsc.statechartwithjava._symboltable.StatechartWithJavaLanguage.
-	 */
-	public StatechartWithJavaLanguage() {
-		super("Statechart Language", "sc");
-
-		setModelNameCalculator(new StatechartModelNameCalculator());
-	}
-
-	/**
-	 * @see de.monticore.ModelingLanguage#getSymbolTableCreator(de.monticore.symboltable.ResolvingConfiguration, de.monticore.symboltable.MutableScope)
-	 */
-	@Override
-	public Optional<? extends SymbolTableCreator> getSymbolTableCreator(ResolvingConfiguration resolvingConfiguration,
-			MutableScope enclosingScope) {
-    return Optional.of(new StatechartSymbolTableCreator(resolvingConfiguration, enclosingScope));
-	}
-
-	/**
-	 * @see de.monticore.CommonModelingLanguage#provideModelLoader()
-	 */
-	@Override
-	protected ModelingLanguageModelLoader<? extends ASTNode> provideModelLoader() {
-		return new StatechartWithJavaModelLoader(this);
-	}
-	
-  protected void initResolvingFilters() {
-    addResolvingFilter(new SCStateResolvingFilter());
-    addResolvingFilter(new StatechartResolvingFilter());
+  
+  /**
+   * Constructor for de.monticore.umlsc.statechartwithjava._symboltable.StatechartWithJavaLanguage.
+   */
+  public StatechartWithJavaLanguage() {
+    super("Statechart Language", "sc");
+    
+    
   }
-
+  
+  
+  
+  @Override
+  protected Set<String> calculateModelNamesForSCState(String name) {
+    // e.g., if p.Automaton.State, return p.Automaton
+    if (!Names.getQualifier(name).isEmpty()) {
+      return ImmutableSet.of(Names.getQualifier(name));
+    }
+    
+    return Collections.emptySet();
+  }
+  
+  
+  
+  /**
+   *  de.monticore.IModelingLanguage#getSymbolTableCreator(de.monticore.symboltable.IScope)
+   */
+  public Optional<? extends StatechartSymbolTableCreator> getSymbolTableCreator(IStatechartScope enclosingScope) {
+    return Optional.of(new StatechartSymbolTableCreator(enclosingScope));
+  }
+  
+  /**
+   *  de.monticore.CommonModelingLanguage#provideModelLoader()
+   */
+  @Override
+  protected StatechartWithJavaModelLoader provideModelLoader() {
+    return new StatechartWithJavaModelLoader(this);
+  }
+  
 }

@@ -1,5 +1,0 @@
-/* (c) https://github.com/MontiCore/monticore */
-{
-  statechart [[ Banking :- Auftrag2 ]] {}
-
-}

@@ -11,20 +11,20 @@ import de.se_rwth.commons.logging.Log;
  *
  */
 public class AtLeastOneInitialStateInFinalStatechartChecker implements StatechartASTStatechartCoCo {
-
-	/**
-	 * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCDefinitionCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCDefinition)
-	 */
-	@Override
-	public void check(ASTStatechart node) {
-		if(node.isPresentCompleteness() && node.getCompleteness().isComplete()) {
-			for(ASTSCState s : node.getSCStateList()) {
-				if(s!=null) {
-					return;
-				}
-			}
-			Log.error("no initial State in complete Statechart", node.get_SourcePositionStart());
-		}
-	}
-
+  
+  /**
+   * @see de.monticore.umlsc.statechart._cocos.StatechartASTStatechartCoCo#check(de.monticore.umlsc.statechart._ast.ASTStatechart)
+   */
+  @Override
+  public void check(ASTStatechart node) {
+    if(node.isPresentCompleteness() && node.getCompleteness().isComplete()) {
+      for(ASTSCState s : node.getSCStateList()) {
+        if(s!=null) {
+          return;
+        }
+      }
+      Log.error("no initial State in complete Statechart", node.get_SourcePositionStart());
+    }
+  }
+  
 }
