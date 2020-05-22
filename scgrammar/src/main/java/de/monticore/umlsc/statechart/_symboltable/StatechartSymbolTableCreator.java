@@ -23,25 +23,9 @@ public class StatechartSymbolTableCreator extends StatechartSymbolTableCreatorTO
   }
 
   @Override
-  public void setLinkBetweenSpannedScopeAndNode(IStatechartScope scope, ASTStatechart astNode){
-    // scope -> ast
-    scope.setAstNode(astNode);
-
-    // ast -> scope
-    astNode.setSpannedScope(scope);
-  }
-
-  @Override
-  public void setLinkBetweenSpannedScopeAndNode(IStatechartScope scope, ASTSCArtifact astNode) {
-    // scope -> ast
-    scope.setAstNode(astNode);
-
-    // ast -> scope
-    astNode.setSpannedScope(scope);
-  }
-
-  @Override
   protected IStatechartScope create_SCArtifact(ASTSCArtifact node) {
+    // skip scope creation if possible, i.e. an SCArtifact does not produce its own scope
+    // but uses the artifact scope
     return getCurrentScope().orElse(createScope(false));
   }
 
