@@ -7,6 +7,6 @@ package de.monticore.umlsc;
  *
  */
 grammar StatechartWithJavaWithCD extends de.monticore.umlsc.StatechartWithJava, de.monticore.cd.CD4Analysis {
- SCOrCD = SCArtifact | CDDefinition;
+ SCOrCD = "SCOrCD" SCArtifact | CDDefinition;
  start SCOrCD;
 }

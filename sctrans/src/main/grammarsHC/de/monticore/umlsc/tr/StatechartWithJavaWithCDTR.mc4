@@ -1,7 +1,0 @@
-package de.monticore.umlsc.tr;
-
-grammar StatechartWithJavaWithCDTR extends de.monticore.umlsc.tr.StatechartWithJavaTR, de.monticore.cd.tr.CD4AnalysisTR {
-
-  interface ITFSCOrCD extends ITFPart <1>  astextends mc.tfcs.ast.ITFElement;
-
-}
