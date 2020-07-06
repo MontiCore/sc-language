@@ -7,12 +7,9 @@ import de.monticore.prettyprint.MCBasicsPrettyPrinter;
 import de.monticore.types.mcbasictypes._ast.ASTMCImportStatement;
 import de.monticore.umlsc.statechart._ast.*;
 import de.monticore.umlsc.statechart._visitor.StatechartVisitor;
-import de.monticore.umlsc.statechartwithjava._ast.ASTSCExpression;
-import de.monticore.umlsc.statechartwithjava._ast.ASTSCInvariantContent;
-import de.monticore.umlsc.statechartwithjava._ast.ASTSCStatements;
-import de.monticore.umlsc.statechartwithjava._visitor.StatechartWithJavaVisitor;
+import de.se_rwth.commons.Names;
 
-public class StatechartPrettyPrinter extends MCBasicsPrettyPrinter implements StatechartWithJavaVisitor {
+public class StatechartPrettyPrinter extends MCBasicsPrettyPrinter implements StatechartVisitor {
 
   StatechartPrettyPrinter(IndentPrinter printer) {
     super(printer);
@@ -20,28 +17,22 @@ public class StatechartPrettyPrinter extends MCBasicsPrettyPrinter implements St
 
   @Override
   public void setRealThis(StatechartVisitor realThis) {
-    super.setRealThis( (StatechartWithJavaVisitor) realThis);
-  }
-
-  @Override
-  public void setRealThis(StatechartWithJavaVisitor realThis) {
     super.setRealThis(realThis);
   }
 
   @Override
-  public StatechartWithJavaVisitor getRealThis() {
-    return (StatechartWithJavaVisitor)super.getRealThis();
+  public StatechartVisitor getRealThis() {
+    return (StatechartVisitor)super.getRealThis();
   }
 
 
   /**
+   * This method is deprecated, use delegators instead
    * @deprecated de.monticore.umlsc.statechart.prettyprint.StatechartPrettyPrinterDelegator#prettyPrint(ASTStatechartNode)
    * */
   @Deprecated
   public static String prettyPrint(ASTStatechartNode node) {
-
-     //Todo hinweis: nicht new PrettyPrinter sondern PPDelegator nutzen :)
-    return new StatechartPrettyPrinterDelegator(new IndentPrinter()).prettyPrint(node);
+    return new StatechartPrettyPrinterDelegator().prettyPrint(node);
   }
 
   @Override
@@ -171,42 +162,6 @@ public class StatechartPrettyPrinter extends MCBasicsPrettyPrinter implements St
   }
 
   @Override
-  public void handle(ASTSCStatementsExt node) {
-    if (node instanceof ASTSCStatements) {
-      ((ASTSCStatements) node).accept(getRealThis());
-    }
-  }
-
-  @Override
-  public void handle(ASTSCExpressionExt node) {
-    if (node instanceof ASTSCExpression) {
-      ((ASTSCExpression) node).accept(getRealThis());
-    }
-  }
-
-  @Override
-  public void handle(ASTSCInvariantContentExt node) {
-    if (node instanceof ASTSCInvariantContent) {
-      ((ASTSCInvariantContent) node).accept(getRealThis());
-    }
-  }
-
-  @Override
-  public void handle(ASTSCStatements node) {
-      node.getMCBlockStatement().accept(getRealThis());
-  }
-
-  @Override
-  public void handle(ASTSCExpression node) {
-    node.getExpression().accept(getRealThis());
-  }
-
-  @Override
-  public void handle(ASTSCInvariantContent node) {
-    node.getExpression().accept(getRealThis());
-  }
-
-  @Override
   public void handle(ASTCompleteness node) {
     if (node.isComplete()) {
       getPrinter().print(" (c) ");
@@ -320,25 +275,12 @@ public class StatechartPrettyPrinter extends MCBasicsPrettyPrinter implements St
   public void handle(ASTSCArtifact node) {
     if (!node.getPackageList().isEmpty()) {
       getPrinter().print("package ");
-      boolean first = true;
-      for (String s : node.getPackageList()) {
-        if (first) {
-          getPrinter().print(s);
-          first = false;
-        } else {
-          getPrinter().print("." + s);
-        }
-      }
+      getPrinter().print(Names.getQualifiedName(node.getPackageList()));
       getPrinter().println(";");
     }
     if (!node.getMCImportStatementList().isEmpty()) {
       for (ASTMCImportStatement importStatement : node.getMCImportStatementList()) {
-        getPrinter().print("import ");
-        getPrinter().print(importStatement.getQName());
-        if(importStatement.isStar()){
-          getPrinter().print(".*");
-        }
-        getPrinter().println(";");
+        importStatement.accept(getRealThis());
       }
     }
     node.getStatechart().accept(getRealThis());

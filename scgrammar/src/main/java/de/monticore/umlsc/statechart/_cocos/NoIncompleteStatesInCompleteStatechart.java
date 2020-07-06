@@ -3,6 +3,7 @@ package de.monticore.umlsc.statechart._cocos;
 
 import de.monticore.umlsc.statechart._ast.ASTSCState;
 import de.monticore.umlsc.statechart._ast.ASTStatechart;
+import de.se_rwth.commons.logging.Log;
 
 /**
  * TODO: Write me!
@@ -23,19 +24,18 @@ public class NoIncompleteStatesInCompleteStatechart implements StatechartASTStat
     }
     
   }
-  
-}
+  private static class NoIncompleteStates implements StatechartASTSCStateCoCo {
 
-
-class NoIncompleteStates implements StatechartASTSCStateCoCo {
-  
-  /**
-   * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCStateCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCState)
-   */
-  @Override
-  public void check(ASTSCState node) {
-    // TODO Auto-generated method stub
-    
+    /**
+     * @see de.monticore.umlsc.statechart._cocos.StatechartASTSCStateCoCo#check(de.monticore.umlsc.statechart._ast.ASTSCState)
+     */
+    @Override
+    public void check(ASTSCState node) {
+      if (node.isPresentCompleteness() && node.getCompleteness().isIncomplete()){
+        Log.error(String.format("State %s is incomplete in a complete statechart", node.getName()), node.get_SourcePositionStart());
+      }
+    }
   }
-  
 }
+
+

@@ -1,16 +1,9 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore.umlsc.statechart._symboltable;
 
-import de.monticore.symboltable.ImportStatement;
-import de.monticore.types.mcbasictypes._ast.ASTMCImportStatement;
 import de.monticore.umlsc.statechart._ast.ASTSCArtifact;
-import de.monticore.umlsc.statechart._ast.ASTStatechart;
 
-
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
-import java.util.Optional;
 
 public class StatechartSymbolTableCreator extends StatechartSymbolTableCreatorTOP {
 
