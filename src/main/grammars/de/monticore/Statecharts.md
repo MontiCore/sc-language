@@ -1,5 +1,5 @@
 <!-- (c) https://github.com/MontiCore/monticore -->
-[[_TOC_]]
+
 
 # Statecharts
 
@@ -26,7 +26,7 @@ group them into two forms of complete Statecharts. Please also note,
 that all of these components and languages are still configurable 
 activity extendable with concrete forms of values, expressions and 
 statements - like the ones defined in [MontiCore's expression grammar 
-library](https://git.rwth-aachen.de/monticore/monticore/blob/dev/monticore-grammar/src/main/grammars/de/monticore/Grammars.md).    
+library (not yet publicly available)](https://git.rwth-aachen.de/monticore/monticore/blob/dev/monticore-grammar/src/main/grammars/de/monticore/Grammars.md).    
 **Statechart examples demonstrating the syntax are provided in the [README](../../../../../README.md) of the project.**
 
 

@@ -7,7 +7,7 @@ located **[here](src/main/grammars/de/monticore/Statecharts.md)**.
 
 # Statechart Language in MontiCore
 
-[[_TOC_]]
+
 
 Statecharts are a comfortable language to describe behavior based on
 the internal state of a component. Statecharts have originally been
