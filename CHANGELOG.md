@@ -1,3 +1,4 @@
+<!-- (c) https://github.com/MontiCore/monticore -->
 # 6.8.0-SNAPSHOT
 to be released  
 based on MontiCore 6.8.0-SNAPSHOT
