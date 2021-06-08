@@ -82,7 +82,7 @@ Expressions and statements are taken from MontiCores basic grammar library
 and can be extended by any own interesting language constructs
 (such as sending or receiving messages `!m` or `?m`)
 
-Further example models such as [`Door.sc`](src/test/resources/examples/Door.sc) or [`Car.sc`](/src/test/resources/examples/Car.sc) can be found here:
+Further example models such as [`Door.sc`](src/test/resources/examples/uml/Door.sc) or [`Car.sc`](/src/test/resources/examples/uml/Car.sc) can be found here:
 [src/test/resources/examples](src/test/resources/examples).
 
 Graphical representations of the examples above:

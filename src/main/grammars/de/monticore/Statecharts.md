@@ -26,7 +26,7 @@ group them into two forms of complete Statecharts. Please also note,
 that all of these components and languages are still configurable 
 activity extendable with concrete forms of values, expressions and 
 statements - like the ones defined in [MontiCore's expression grammar 
-library (not yet publicly available)](https://git.rwth-aachen.de/monticore/monticore/blob/dev/monticore-grammar/src/main/grammars/de/monticore/Grammars.md).    
+library](https://github.com/MontiCore/monticore/blob/dev/monticore-grammar/src/main/grammars/de/monticore/Grammars.md).    
 **Statechart examples demonstrating the syntax are provided in the [README](../../../../../README.md) of the project.**
 
 
@@ -196,17 +196,17 @@ grammar are located [here](../../../java/de/monticore/scbasis/_cocos).
 The implementations of the context conditions for the [SCEvents](../../../grammars/de/monticore/SCEvents.mc4) 
 grammar are located [here](../../../java/de/monticore/scevents/_cocos).
 
-* The context condition [```NonCapitalEventNames```](../../../java/de/monticore/scbasis/_cocos/NonCapitalEventNames.java) 
+* The context condition [```NonCapitalEventNames```](../../../java/de/monticore/scevents/_cocos/NonCapitalEventNames.java) 
   checks the naming convention that event names start with a lower case letter.
 
-* The context condition [```NonCapitalParamNames```](../../../java/de/monticore/scbasis/_cocos/NonCapitalParamNames.java) 
+* The context condition [```NonCapitalParamNames```](../../../java/de/monticore/scevents/_cocos/NonCapitalParamNames.java) 
   checks the naming convention that event parameter names start with a lower case letter.
 
 ### SCStateInvariants Context Conditions
 The implementations of the context conditions for the [SCStateInvariants](../../../grammars/de/monticore/SCStateInvariants.mc4)
 grammar are located [here](../../../java/de/monticore/scevents/_cocos).
 
-* The context condition [```InvariantValid```](../../../java/de/monticore/scbasis/_cocos/InvariantValid.java) 
+* The context condition [```InvariantValid```](../../../java/de/monticore/scstateinvariants/_cocos/InvariantValid.java) 
   checks that an invariant is of type boolean.
 
 ## Handwritten AST Extensions
