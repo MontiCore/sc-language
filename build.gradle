@@ -108,7 +108,6 @@ shadowJar {
   }
   archiveClassifier = "cli"
   archiveFileName = "${archiveBaseName.get().capitalize()}CLI.${archiveExtension.get()}"
-  minimize()
 }
 
 

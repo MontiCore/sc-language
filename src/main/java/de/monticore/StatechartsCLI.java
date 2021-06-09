@@ -1,7 +1,6 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore;
 
-import com.google.common.collect.Lists;
 import de.monticore.cd4code.prettyprint.CD4CodeFullPrettyPrinter;
 import de.monticore.cdbasis._ast.ASTCDClass;
 import de.monticore.cdbasis._ast.ASTCDCompilationUnit;
@@ -360,8 +359,6 @@ public class StatechartsCLI {
         targetDir.mkdirs();
       config.setOutputDirectory(targetDir);
       config.setTracing(false);
-      File templatePath = new File("src/main/resources");
-      config.setAdditionalTemplatePaths(Lists.newArrayList(templatePath));
     }
 
     ASTCDCompilationUnit cd = converter.doConvert(scartifact, config);
