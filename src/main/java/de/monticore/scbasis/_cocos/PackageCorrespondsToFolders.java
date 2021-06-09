@@ -13,7 +13,7 @@ public class PackageCorrespondsToFolders implements SCBasisASTSCArtifactCoCo {
 
   public static final String ERROR_CODE = "0xCC107";
   
-  private static final String MESSAGE = 
+  protected static final String MESSAGE = 
           " Package name '%s' does not correspond to the file path '%s'.";
 
   @Override

@@ -1,7 +1,6 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore;
 
-import de.monticore.symbols.basicsymbols.BasicSymbolsMill;
 import de.monticore.symbols.basicsymbols._symboltable.TypeSymbol;
 import de.monticore.umlstatecharts.UMLStatechartsMill;
 import de.monticore.umlstatecharts._symboltable.IUMLStatechartsArtifactScope;
@@ -67,6 +66,15 @@ public class UMLStatechartsToolTest {
         "-pp"
     });
     assertEquals("Pretty printing of Door.sc was not successful", Log.getErrorCount(), 0);
+  }
+
+  @Test
+  public void testUMLStatechartsConverter(){
+    new StatechartsCLI().run(new String[]{
+            "-i", resourcesDir + "examples/uml/DoorExample.sc",
+            "-gen", "target/gentest"
+    });
+    assertEquals("Converting to SD of Door.sc was not successful", Log.getErrorCount(), 0);
   }
   
   @Test
@@ -148,6 +156,8 @@ public class UMLStatechartsToolTest {
     assertEquals(Log.getErrorCount(), 0);
     String result = out.toString().replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n");
     assertEquals( "usage: UMLSCTool\n"
+        + " -gen,--generate <file>     Prints the state pattern CD-AST to stdout or the\n"
+        + "                            generated java classes to the specified folder\n"
         + " -h,--help                  Prints this help dialog\n"
         + " -i,--input <file>          Reads the source file (mandatory) and parses the\n"
         + "                            contents as a statechart\n"

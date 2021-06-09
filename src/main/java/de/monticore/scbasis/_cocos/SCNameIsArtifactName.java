@@ -12,7 +12,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class SCNameIsArtifactName implements SCBasisASTSCArtifactCoCo {
   public static final String ERROR_CODE = "0xCC108";
-  private static final String MESSAGE = " The statechart name %s does not match the artifact name %s";
+  protected static final String MESSAGE = " The statechart name %s does not match the artifact name %s";
 
   @Override
   public void check(ASTSCArtifact node) {

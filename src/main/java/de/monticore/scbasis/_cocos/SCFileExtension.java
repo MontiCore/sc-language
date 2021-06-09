@@ -11,7 +11,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class SCFileExtension implements SCBasisASTSCArtifactCoCo {
 
-  private static final String FILE_EXTENSION = "sc";
+  protected static final String FILE_EXTENSION = "sc";
   
   public static final String ERROR_CODE = "0xCC106";
       

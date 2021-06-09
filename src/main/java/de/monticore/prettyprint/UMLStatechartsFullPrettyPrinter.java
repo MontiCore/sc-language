@@ -78,4 +78,7 @@ public class UMLStatechartsFullPrettyPrinter {
     return printer;
   }
 
+  public UMLStatechartsTraverser getTraverser() {
+    return traverser;
+  }
 }

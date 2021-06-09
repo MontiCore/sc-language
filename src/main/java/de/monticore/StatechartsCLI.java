@@ -1,8 +1,17 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore;
 
+import com.google.common.collect.Lists;
+import de.monticore.cd4code.prettyprint.CD4CodeFullPrettyPrinter;
+import de.monticore.cdbasis._ast.ASTCDClass;
+import de.monticore.cdbasis._ast.ASTCDCompilationUnit;
+import de.monticore.generating.GeneratorEngine;
+import de.monticore.generating.GeneratorSetup;
+import de.monticore.generating.templateengine.GlobalExtensionManagement;
 import de.monticore.io.paths.ModelPath;
+import de.monticore.prettyprint.IndentPrinter;
 import de.monticore.prettyprint.UMLStatechartsFullPrettyPrinter;
+import de.monticore.sc2cd.SC2CDConverter;
 import de.monticore.scbasis.BranchingDegreeCalculator;
 import de.monticore.scbasis.InitialStateCollector;
 import de.monticore.scbasis.ReachableStateCollector;
@@ -109,6 +118,12 @@ public class StatechartsCLI {
       if (cmd.hasOption("r")) {
         String path = cmd.getOptionValue("r", StringUtils.EMPTY);
         report(scartifact, path);
+      }
+
+      // -option generate to CD
+      if (cmd.hasOption("gen")) {
+        String path = cmd.getOptionValue("gen", StringUtils.EMPTY);
+        generateCD(scartifact, path);
       }
     
     
@@ -323,6 +338,56 @@ public class StatechartsCLI {
     }
   }
 
+  /**
+   * Prints the contents of the SD-AST to stdout or
+   * generates the java classes for the generated SD-AST into a directory
+   *
+   * @param scartifact The SC-AST to be converted
+   * @param outputDirectory The target directory name for outputting the CD artifact. If empty,
+   *          the content is printed to stdout instead
+   */
+  public void generateCD(ASTSCArtifact scartifact, String outputDirectory) {
+    // pretty print AST
+    SC2CDConverter converter = new SC2CDConverter();
+
+    GeneratorSetup config = new GeneratorSetup();
+    GlobalExtensionManagement glex = new GlobalExtensionManagement();
+    config.setGlex(glex);
+    if (!outputDirectory.isEmpty()){
+      // Prepare CD4C
+      File targetDir = new File(outputDirectory);
+      if (!targetDir.exists())
+        targetDir.mkdirs();
+      config.setOutputDirectory(targetDir);
+      config.setTracing(false);
+      File templatePath = new File("src/main/resources");
+      config.setAdditionalTemplatePaths(Lists.newArrayList(templatePath));
+    }
+
+    ASTCDCompilationUnit cd = converter.doConvert(scartifact, config);
+    if (outputDirectory.isEmpty()) {
+      CD4CodeFullPrettyPrinter prettyPrinter = new CD4CodeFullPrettyPrinter();
+      String prettyOutput = prettyPrinter.prettyprint(cd);
+      print(prettyOutput, outputDirectory);
+    }else{
+      final CD4CodeFullPrettyPrinter printer = new CD4CodeFullPrettyPrinter(new IndentPrinter());
+      GeneratorEngine generatorEngine = new GeneratorEngine(config);
+
+      Path packageDir = Paths.get(".");
+      for (String pn : cd.getCDPackageList()){
+        packageDir = Paths.get(packageDir.toString(), pn);
+      }
+      if (!packageDir.toFile().exists())
+        packageDir.toFile().mkdirs();
+
+      for (ASTCDClass clazz : cd.getCDDefinition().getCDClassesList()) {
+        Path out = Paths.get(packageDir.toString(),clazz.getName() + ".java");
+        generatorEngine.generate("de.monticore.sc2cd.gen.Class", out,
+                                 clazz, printer, cd.getCDPackageList());
+      }
+
+    }
+  }
 
 
   /**
@@ -372,7 +437,16 @@ public class StatechartsCLI {
         .desc("Prints reports of the statechart artifact to the specified directory. Available reports:"
             + System.lineSeparator() + "reachable states, branching degree, and state names")
         .build());
-  
+
+    // convert to state pattern CD
+    options.addOption(Option.builder("gen")
+                              .longOpt("generate")
+                              .argName("file")
+                              .optionalArg(true)
+                              .numberOfArgs(1)
+                              .desc("Prints the state pattern CD-AST to stdout or the generated java classes to the specified folder")
+                              .build());
+
     // model paths
     options.addOption(Option.builder("path")
         .hasArgs()

@@ -16,7 +16,7 @@ def grammarDir = "src/main/grammars"
 def grammarOutDir = "$buildDir/generated-sources/mc"
 def testGrammarOutDir = "$buildDir/generated-test-sources/mc"
 
-def commons_version = "1.7.10"
+def guava_version = "30.1-jre"
 def logback_version = "1.2.3"
 def junit_version = "4.13.1"
 def commons_cli_version = "1.4"
@@ -46,11 +46,13 @@ dependencies {
       requireCapability("de.monticore:monticore-grammar-grammars")
     }
   }
+  implementation "com.google.guava:guava:$guava_version"
   implementation "de.monticore:monticore-runtime:$mc_version"
   implementation "de.monticore:monticore-grammar:$mc_version"
-  implementation "de.se_rwth.commons:se-commons-logging:$commons_version"
-  implementation "de.se_rwth.commons:se-commons-utilities:$commons_version"
+  implementation "de.se_rwth.commons:se-commons-logging:$mc_version"
+  implementation "de.se_rwth.commons:se-commons-utilities:$mc_version"
   implementation group:'org.antlr', name:'antlr4-runtime', version:antlr_version
+  implementation group:'de.monticore.lang', name:'cd4analysis', version:mc_version
   implementation "commons-cli:commons-cli:$commons_cli_version"
   implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
   implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
