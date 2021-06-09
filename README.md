@@ -127,10 +127,11 @@ where the arguments are:
 
 | Option                     | Explanation |
 | ------                     | ------ |
+| `-gen,--generate <file>`   | Prints the state pattern CD-AST to stdout or the generated java classes to the specified folder (optional) |
 | `-h,--help`                | Prints this help information   |
 | `-i,--input <file>`        | Reads the source file (mandatory) and parses the contents as a statechart |
 | `-pp,--prettyprint <file>` | Prints the Statechart-AST to stdout or the specified file (optional) |
-| `-path`                     | Sets the artifact path for imported symbols, space separated |
+| `-path`                    | Sets the artifact path for imported symbols, space separated |
 | `-r,--report <dir>`        | Prints reports of the statechart artifact to the specified directory. This includes e.g. reachable states and branching degrees  |
 | `-s,--symboltable <file>`  | Stores the symbol table of the given Statechart |
 
