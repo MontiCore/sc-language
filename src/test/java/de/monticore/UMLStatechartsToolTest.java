@@ -157,7 +157,8 @@ public class UMLStatechartsToolTest {
     String result = out.toString().replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n");
     assertEquals( "usage: UMLSCTool\n"
         + " -gen,--generate <file>     Prints the state pattern CD-AST to stdout or the\n"
-        + "                            generated java classes to the specified folder\n"
+        + "                            generated java classes to the specified folder\n" 
+        + "                            (optional)\n"
         + " -h,--help                  Prints this help dialog\n"
         + " -i,--input <file>          Reads the source file (mandatory) and parses the\n"
         + "                            contents as a statechart\n"

@@ -444,7 +444,7 @@ public class StatechartsCLI {
                               .argName("file")
                               .optionalArg(true)
                               .numberOfArgs(1)
-                              .desc("Prints the state pattern CD-AST to stdout or the generated java classes to the specified folder")
+                              .desc("Prints the state pattern CD-AST to stdout or the generated java classes to the specified folder (optional)")
                               .build());
 
     // model paths
