@@ -2,7 +2,7 @@
 package de.monticore.cocos;
 
 import de.monticore.StatechartsCLI;
-import de.monticore.io.paths.ModelPath;
+import de.monticore.io.paths.MCPath;
 import de.monticore.scbasis._ast.ASTSCArtifact;
 import de.monticore.scstateinvariants._cocos.InvariantValid;
 import de.monticore.symbols.basicsymbols.BasicSymbolsMill;
@@ -132,7 +132,7 @@ public class InvariantValidTest {
     
     IUMLStatechartsArtifactScope st = new StatechartsCLI().createSymbolTable(ast.get());
     st.setName("Invariant5");
-    UMLStatechartsMill.globalScope().setModelPath(new ModelPath(Paths.get("src/test/resources/symtab")));
+    UMLStatechartsMill.globalScope().setSymbolPath(new MCPath(Paths.get("src/test/resources/symtab")));
     UMLStatechartsCoCoChecker checker = new UMLStatechartsCoCoChecker();
     checker.addCoCo(new InvariantValid(new TypeCheck(null, new DeriveSymTypeOfUMLStatecharts())));
     checker.checkAll(ast.get());

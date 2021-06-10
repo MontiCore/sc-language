@@ -1,15 +1,15 @@
 /* (c) https://github.com/MontiCore/monticore */
 package de.monticore;
 
+import de.monticore.prettyprint.UMLStatechartsFullPrettyPrinter;
+import de.monticore.io.paths.MCPath;
 import de.monticore.cd4code.prettyprint.CD4CodeFullPrettyPrinter;
 import de.monticore.cdbasis._ast.ASTCDClass;
 import de.monticore.cdbasis._ast.ASTCDCompilationUnit;
 import de.monticore.generating.GeneratorEngine;
 import de.monticore.generating.GeneratorSetup;
 import de.monticore.generating.templateengine.GlobalExtensionManagement;
-import de.monticore.io.paths.ModelPath;
 import de.monticore.prettyprint.IndentPrinter;
-import de.monticore.prettyprint.UMLStatechartsFullPrettyPrinter;
 import de.monticore.sc2cd.SC2CDConverter;
 import de.monticore.scbasis.BranchingDegreeCalculator;
 import de.monticore.scbasis.InitialStateCollector;
@@ -86,11 +86,11 @@ public class StatechartsCLI {
       }
   
       // we need the global scope for symbols and cocos
-      ModelPath modelPath = new ModelPath(Paths.get(""));
+      MCPath symbolPath = new MCPath(Paths.get(""));
       if (cmd.hasOption("path")) {
-        modelPath = new ModelPath(Arrays.stream(cmd.getOptionValues("path")).map(x -> Paths.get(x)).collect(Collectors.toList()));
+        symbolPath = new MCPath(Arrays.stream(cmd.getOptionValues("path")).map(x -> Paths.get(x)).collect(Collectors.toList()));
       }
-      UMLStatechartsMill.globalScope().setModelPath(modelPath);
+      UMLStatechartsMill.globalScope().setSymbolPath(symbolPath);
       BasicSymbolsMill.initializePrimitives();
     
       // parse input file, which is now available
@@ -124,7 +124,7 @@ public class StatechartsCLI {
         String path = cmd.getOptionValue("gen", StringUtils.EMPTY);
         generateCD(scartifact, path);
       }
-    
+
     
     } catch (ParseException e) {
       // ann unexpected error from the apache CLI parser:
