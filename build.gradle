@@ -86,8 +86,6 @@ fileTree(grammarDir).matching { include '**/*.mc4'}.each { g ->
 
 compileJava.dependsOn generate
 
-// Fixes issue with java plugin in projects without resources
-compileTestJava.doFirst { mkdir sourceSets.main.output.resourcesDir }
 
 tasks.withType(Test) {
   maxParallelForks = Runtime.runtime.availableProcessors() ?: 1
@@ -123,6 +121,8 @@ java {
     usingSourceSet(sourceSets.grammars)
   }
 }
+
+sourcesJar.dependsOn project.collect { it.tasks.withType(MCTask)}
 
 jar.dependsOn grammarsJar, shadowJar
 
