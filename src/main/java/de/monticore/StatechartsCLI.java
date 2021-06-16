@@ -16,10 +16,13 @@ import de.monticore.scbasis.InitialStateCollector;
 import de.monticore.scbasis.ReachableStateCollector;
 import de.monticore.scbasis.StateCollector;
 import de.monticore.scbasis._ast.ASTSCArtifact;
+import de.monticore.scbasis._ast.ASTSCState;
 import de.monticore.scbasis._cocos.*;
+import de.monticore.scbasis._symboltable.SCStateSymbol;
 import de.monticore.scevents._cocos.NonCapitalEventNames;
 import de.monticore.scevents._cocos.NonCapitalParamNames;
 import de.monticore.scevents._symboltable.SCEventsSTCompleter;
+import de.monticore.scstatehierarchy.HierarchicalStateCollector;
 import de.monticore.scstatehierarchy.NoSubstatesHandler;
 import de.monticore.symbols.basicsymbols.BasicSymbolsMill;
 import de.monticore.types.DeriveSymTypeOfUMLStatecharts;
@@ -84,7 +87,7 @@ public class StatechartsCLI {
         // do not continue, when help is printed
         return;
       }
-  
+
       // we need the global scope for symbols and cocos
       MCPath symbolPath = new MCPath(Paths.get(""));
       if (cmd.hasOption("path")) {
@@ -92,7 +95,7 @@ public class StatechartsCLI {
       }
       UMLStatechartsMill.globalScope().setSymbolPath(symbolPath);
       BasicSymbolsMill.initializePrimitives();
-    
+
       // parse input file, which is now available
       // (only returns if successful)
       ASTSCArtifact scartifact = parseFile(cmd.getOptionValue("i"));
@@ -144,15 +147,15 @@ public class StatechartsCLI {
    * @return The artifact scope derived from the parsed AST
    */
   public IUMLStatechartsArtifactScope createSymbolTable(ASTSCArtifact ast) {
-  
+
     // create scope and symbol skeleton
     UMLStatechartsScopesGenitorDelegator genitor = UMLStatechartsMill.scopesGenitorDelegator();
     IUMLStatechartsArtifactScope symTab = genitor.createFromAST(ast);
-  
+
     // complete symbols including type check
     UMLStatechartsTraverser completer = UMLStatechartsMill.traverser();
     TypeCheck typeCheck = new TypeCheck(new SynthesizeSymType(),new DeriveSymTypeOfUMLStatecharts());
-    completer.add4SCEvents(new SCEventsSTCompleter(typeCheck));  
+    completer.add4SCEvents(new SCEventsSTCompleter(typeCheck));
     ast.accept(completer);
 
     return symTab;
@@ -185,15 +188,20 @@ public class StatechartsCLI {
   public String reportReachableStates(ASTSCArtifact ast) {
     UMLStatechartsTraverser traverser = UMLStatechartsMill.traverser();
     // collect all states
-    StateCollector stateCollector = new StateCollector();
+    // HierarchicalStateCollector vs StateCollector
+    HierarchicalStateCollector stateCollector = new HierarchicalStateCollector();
     traverser.add4SCBasis(stateCollector);
+    traverser.add4SCStateHierarchy(stateCollector);
     ast.accept(traverser);
     Set<String> statesToBeChecked = stateCollector.getStates()
         .stream().map(e -> e.getName()).collect(Collectors.toSet());
     
     // collect all initial states
+    traverser = UMLStatechartsMill.traverser();
     InitialStateCollector initialStateCollector = new InitialStateCollector();
     traverser.add4SCBasis(initialStateCollector);
+    //  only find real initial states
+    traverser.setSCStateHierarchyHandler(new NoSubstatesHandler());
     ast.accept(traverser);
     Set<String> reachableStates = initialStateCollector.getStates();
     
@@ -205,6 +213,7 @@ public class StatechartsCLI {
       String from = currentlyChecked.iterator().next();
       currentlyChecked.remove(from);
       ReachableStateCollector reachableStateCollector = new ReachableStateCollector(from);
+      traverser = UMLStatechartsMill.traverser();
       traverser.add4SCBasis(reachableStateCollector);
       ast.accept(traverser);
       for (String to : reachableStateCollector.getReachableStates()) {
@@ -216,8 +225,24 @@ public class StatechartsCLI {
           statesToBeChecked.remove(to);
         }
       }
+      // Handle all inner initial states
+      Optional<SCStateSymbol> stateSymbol = ast.getEnclosingScope().resolveSCState(from);
+      stateCollector.getStatesMap().clear();
+      traverser.add4SCBasis(stateCollector);
+      traverser.add4SCStateHierarchy(stateCollector);
+      if (!stateSymbol.isPresent())
+        throw new IllegalStateException("Failed to resolve state symbol " + from);
+      stateSymbol.get().getAstNode().accept(traverser);
+      for (ASTSCState innerReachableState : stateCollector.getStates(1)) {
+        if (innerReachableState.getSCModifier().isInitial()) {
+          reachableStates.add(innerReachableState.getName());
+          currentlyChecked.add(innerReachableState.getName());
+          statesToBeChecked.remove(innerReachableState.getName());
+        }
+      }
+
     }
-    return "reachable: " + String.join(",", reachableStates) + System.lineSeparator() 
+    return "reachable: " + String.join(",", reachableStates) + System.lineSeparator()
        + "unreachable: " + String.join(",", statesToBeChecked) + System.lineSeparator() ;
   }
 
@@ -289,7 +314,7 @@ public class StatechartsCLI {
     checker.addCoCo(new NonCapitalParamNames());
     checker.checkAll(ast);
   }
-  
+
   /**
    * Prints the contents of the SC-AST to stdout or a specified file.
    *
@@ -449,7 +474,7 @@ public class StatechartsCLI {
         .hasArgs()
         .desc("Sets the artifact path for imported symbols, space separated.")
         .build());
-    
+
     return options;
   }
 }
